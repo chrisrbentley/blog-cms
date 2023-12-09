@@ -1,0 +1,40 @@
+.card {
+	border: solid 3px #655560;
+	padding: 5px;
+	margin: 100px;
+}
+
+.loginForm {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.inputContainer {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.inputContainer > label {
+	font-weight: bold;
+}
+
+.inputContainer > input {
+	margin: 10px 0 10px 0;
+	padding: 5px;
+	border: solid #c4cad0 1px;
+}
+
+.submit {
+	background-color: #655560;
+	color: #fcf7ff;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	flex: 1;
+}
+
+.error {
+	color: red;
+}
