@@ -3,6 +3,7 @@ import Login from './components/login';
 import './App.css';
 import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import Dashboard from './components/Dashboard';
 
 const App = () => {
 	const [user, setUser] = useState(null);
@@ -32,6 +33,10 @@ const App = () => {
 	}, []);
 
 	const router = createBrowserRouter([
+		{
+			path: '/',
+			element: <Dashboard user={user} />,
+		},
 		{
 			path: 'login',
 			element: <Login user={user} />,
