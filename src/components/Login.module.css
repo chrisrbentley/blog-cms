@@ -1,5 +1,5 @@
 .card {
-	border: solid 3px #655560;
+	border: solid 3px #6e44ff;
 	padding: 5px;
 	margin: 100px;
 }
@@ -27,7 +27,7 @@
 }
 
 .submit {
-	background-color: #655560;
+	background-color: #6e44ff;
 	color: #fcf7ff;
 	border: none;
 	padding: 5px 10px;
