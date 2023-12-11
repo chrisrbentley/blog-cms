@@ -1,0 +1,27 @@
+.title {
+	display: flex;
+	flex-flow: column nowrap;
+	margin: 0px 20px;
+}
+
+.title > input {
+	margin-top: 5px;
+	padding: 10px;
+	background-color: #222f3e;
+	color: #f7f0f0;
+	border: none;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.buttons > button {
+	background-color: #6e44ff;
+	color: #fcf7ff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
