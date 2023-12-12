@@ -47,6 +47,7 @@ const Login = ({ user }) => {
 		}
 	};
 
+	// change this later
 	if (user) return <Navigate to={'/'} />;
 
 	return (

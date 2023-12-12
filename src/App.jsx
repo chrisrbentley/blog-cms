@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import Dashboard from './components/Dashboard';
 import Create from './components/Create';
+import Posts from './components/Posts';
 
 const App = () => {
 	const [user, setUser] = useState(null);
@@ -45,6 +46,10 @@ const App = () => {
 		{
 			path: 'create',
 			element: <Create user={user} />,
+		},
+		{
+			path: 'posts',
+			element: <Posts user={user} />,
 		},
 	]);
 

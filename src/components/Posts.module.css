@@ -1,0 +1,36 @@
+.tableSection {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.tableSection > table {
+	/* margin: 20px; */
+	/* width: 80vw; */
+	max-width: 80vw;
+	min-width: 60vw;
+}
+
+.filter {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.filter > * {
+	margin: 10px;
+	padding: 5px;
+}
+
+.th {
+	text-align: left;
+	color: #6e44ff;
+}
+
+.tbody > tr > td {
+	padding: 10px 5px;
+}
+
+.tbody > tr > td:first-child {
+	text-wrap: wrap;
+}

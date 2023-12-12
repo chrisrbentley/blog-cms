@@ -12,10 +12,8 @@ const Dashboard = ({ user }) => {
 			<main>
 				<section>
 					<Card pageInfo={{ name: 'Create', link: '/create' }} />
-					<Card
-						pageInfo={{ name: 'Published Posts', link: '/published-posts' }}
-					/>
-					<Card pageInfo={{ name: 'Drafts', link: '/drafts' }} />
+					<Card pageInfo={{ name: 'Posts', link: '/posts' }} />
+					{/* <Card pageInfo={{ name: 'Drafts', link: '/drafts' }} /> */}
 				</section>
 			</main>
 		</>
