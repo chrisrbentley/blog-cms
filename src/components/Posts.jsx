@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Header from './Header';
+import TableLink from './TableLink';
 import { getAllPosts, getPublished, getDrafts } from '../api/postsApi';
 import styles from './Posts.module.css';
 
@@ -71,12 +72,10 @@ const Posts = ({ user }) => {
 							{postsToDisplay &&
 								postsToDisplay.map((post) => {
 									return (
-										<tr key={post._id}>
-											<td>{post.title}</td>
-											<td>
-												{new Date(post.updatedAt).toLocaleDateString('en-US')}
-											</td>
-										</tr>
+										<TableLink
+											key={post._id}
+											post={post}
+										/>
 									);
 								})}
 						</tbody>

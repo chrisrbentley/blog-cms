@@ -51,6 +51,7 @@ const App = () => {
 			path: 'posts',
 			element: <Posts user={user} />,
 		},
+		{ path: 'posts/:id', element: <Create user={user} /> },
 	]);
 
 	return <RouterProvider router={router} />;
