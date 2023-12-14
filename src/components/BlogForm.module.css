@@ -14,7 +14,10 @@
 
 .buttons {
 	display: flex;
-	justify-content: space-evenly;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
 }
 
 .buttons > button {
@@ -24,4 +27,15 @@
 	padding: 10px 20px;
 	border-radius: 5px;
 	cursor: pointer;
+}
+
+.delete {
+	background-color: red !important;
+}
+
+@media only screen and (min-width: 600px) {
+	.buttons {
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+	}
 }

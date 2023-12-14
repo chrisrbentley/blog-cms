@@ -16,7 +16,6 @@ const BlogForm = ({ user }) => {
 	useEffect(() => {
 		const fetchPostDetails = async (id) => {
 			try {
-				console.log('fetching.....');
 				const response = await fetch(
 					`https://blog-api-production-3581.up.railway.app/posts/${id}`,
 				);
@@ -39,13 +38,13 @@ const BlogForm = ({ user }) => {
 		e.preventDefault();
 
 		if (id) {
-			updatePost(JSON.parse(document.activeElement.id));
+			updateBlog(JSON.parse(document.activeElement.id));
 		} else {
 			postBlog(JSON.parse(document.activeElement.id));
 		}
 	};
 
-	const updatePost = async (publish) => {
+	const updateBlog = async (publish) => {
 		const token = `Bearer ${localStorage.getItem('jwt').slice(1, -1)}`;
 
 		try {
@@ -64,7 +63,6 @@ const BlogForm = ({ user }) => {
 					}),
 				},
 			);
-			console.log(response);
 			if (response.ok) return navigate('/');
 		} catch (error) {
 			console.log(error);
@@ -90,7 +88,26 @@ const BlogForm = ({ user }) => {
 					},
 				},
 			);
-			console.log(response);
+			if (response.ok) return navigate('/');
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const deleteBlog = async () => {
+		const token = `Bearer ${localStorage.getItem('jwt').slice(1, -1)}`;
+
+		try {
+			const response = await fetch(
+				`https://blog-api-production-3581.up.railway.app/posts/${id}`,
+				{
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: token,
+					},
+				},
+			);
 			if (response.ok) return navigate('/');
 		} catch (error) {
 			console.log(error);
@@ -162,6 +179,15 @@ const BlogForm = ({ user }) => {
 							text={id ? 'Update and Publish' : 'Save and Publish'}
 							id="true"
 						/>
+						{id && (
+							<button
+								onClick={deleteBlog}
+								className={styles.delete}
+								type="button"
+							>
+								Delete
+							</button>
+						)}
 					</div>
 				</form>
 			</main>
