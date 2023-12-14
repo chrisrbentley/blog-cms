@@ -4,7 +4,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import Dashboard from './components/Dashboard';
-import Create from './components/Create';
+import BlogForm from './components/BlogForm';
 import Posts from './components/Posts';
 
 const App = () => {
@@ -45,13 +45,13 @@ const App = () => {
 		},
 		{
 			path: 'create',
-			element: <Create user={user} />,
+			element: <BlogForm user={user} />,
 		},
 		{
 			path: 'posts',
 			element: <Posts user={user} />,
 		},
-		{ path: 'posts/:id', element: <Create user={user} /> },
+		{ path: 'posts/:id', element: <BlogForm user={user} /> },
 	]);
 
 	return <RouterProvider router={router} />;

@@ -1,17 +1,74 @@
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import styles from './BlogForm.module.css';
 import Header from './Header';
+import Submit from './Submit';
+import { decode } from 'html-entities';
 import { Editor } from '@tinymce/tinymce-react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import styles from './Create.module.css';
 
-const Create = ({ user }) => {
-	const [title, setTitle] = useState();
-	const [content, setContent] = useState();
+const BlogForm = ({ user }) => {
+	let { id } = useParams();
+	const [title, setTitle] = useState('');
+	const [initialValue, setInitialValue] = useState('');
+	const [content, setContent] = useState('');
 	const navigate = useNavigate();
 
-	const onSubmit = (e) => {
+	useEffect(() => {
+		const fetchPostDetails = async (id) => {
+			try {
+				console.log('fetching.....');
+				const response = await fetch(
+					`https://blog-api-production-3581.up.railway.app/posts/${id}`,
+				);
+				if (response.ok) {
+					const data = await response.json();
+					setTitle(data.title);
+					setInitialValue(data.contentHTML);
+				} else console.error('Failed to fetch details');
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		if (id) {
+			fetchPostDetails(id);
+		}
+	}, [id]);
+
+	const handleForm = (e) => {
 		e.preventDefault();
-		postBlog(JSON.parse(document.activeElement.id));
+
+		if (id) {
+			updatePost(JSON.parse(document.activeElement.id));
+		} else {
+			postBlog(JSON.parse(document.activeElement.id));
+		}
+	};
+
+	const updatePost = async (publish) => {
+		const token = `Bearer ${localStorage.getItem('jwt').slice(1, -1)}`;
+
+		try {
+			const response = await fetch(
+				`https://blog-api-production-3581.up.railway.app/posts/${id}`,
+				{
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: token,
+					},
+					body: JSON.stringify({
+						title,
+						contentHTML: content,
+						published: publish,
+					}),
+				},
+			);
+			console.log(response);
+			if (response.ok) return navigate('/');
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const postBlog = async (publish) => {
@@ -42,16 +99,17 @@ const Create = ({ user }) => {
 
 	return user ? (
 		<>
-			<Header page={'Create Post'}></Header>
-			<main className={styles.main}>
-				<form onSubmit={onSubmit}>
+			<Header page={id ? 'Update Post' : 'Create Post'} />
+			<main>
+				<form onSubmit={handleForm}>
 					<div className={styles.title}>
-						<label htmlFor="Title">Title</label>
+						<label htmlFor="title">Title</label>
 						<input
 							id="title"
 							name="title"
 							type="text"
 							placeholder="Enter title here.."
+							value={title}
 							onChange={(e) => {
 								setTitle(e.target.value);
 							}}
@@ -59,6 +117,7 @@ const Create = ({ user }) => {
 					</div>
 
 					<Editor
+						initialValue={id && initialValue ? decode(initialValue) : ''}
 						onEditorChange={(newContent, editor) => {
 							setContent(newContent);
 						}}
@@ -80,6 +139,7 @@ const Create = ({ user }) => {
 								),
 							skin: 'oxide-dark',
 							content_css: 'dark',
+
 							setup: (editor) => {
 								editor.on('init', () => {
 									const editorContainer = document.querySelector(
@@ -92,19 +152,16 @@ const Create = ({ user }) => {
 							},
 						}}
 					/>
+
 					<div className={styles.buttons}>
-						<button
-							type="submit"
+						<Submit
+							text={id ? 'Update in drafts' : 'Save in drafts'}
 							id="false"
-						>
-							Save
-						</button>
-						<button
-							type="submit"
+						/>
+						<Submit
+							text={id ? 'Update and Publish' : 'Save and Publish'}
 							id="true"
-						>
-							Save and Publish
-						</button>
+						/>
 					</div>
 				</form>
 			</main>
@@ -114,4 +171,4 @@ const Create = ({ user }) => {
 	);
 };
 
-export default Create;
+export default BlogForm;
