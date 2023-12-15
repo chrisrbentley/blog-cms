@@ -47,10 +47,7 @@ const Login = ({ user }) => {
 		}
 	};
 
-	// change this later
-	if (user) return <Navigate to={'/'} />;
-
-	return (
+	return !user ? (
 		<main className={styles.main}>
 			<div className={styles.card}>
 				<form
@@ -98,6 +95,8 @@ const Login = ({ user }) => {
 				</form>
 			</div>
 		</main>
+	) : (
+		<Navigate to={'/'} />
 	);
 };
 

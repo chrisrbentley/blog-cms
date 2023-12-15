@@ -7,23 +7,29 @@ import styles from './Posts.module.css';
 const Posts = ({ user }) => {
 	const [filter, setFilter] = useState('all');
 	const [postsToDisplay, setPostsToDisplay] = useState([]);
-	let [all, published, drafts] = [[], [], []];
+
+	const [all, setAll] = useState([]);
+	const [published, setPublished] = useState([]);
+	const [drafts, setDrafts] = useState([]);
 
 	const getPosts = async () => {
 		const token = `Bearer ${localStorage.getItem('jwt').slice(1, -1)}`;
 
-		[all, published, drafts] = await Promise.all([
+		const [allPosts, allPublished, allDrafts] = await Promise.all([
 			getAllPosts(token),
 			getPublished(),
 			getDrafts(token),
 		]);
+
+		setAll(allPosts);
+		setPublished(allPublished);
+		setDrafts(allDrafts);
 	};
 
 	useEffect(() => {
 		const fetchData = async () => {
-			if (user) {
-				await getPosts();
-
+			console.log(all, published, drafts);
+			if ((all, published, drafts)) {
 				let posts = [];
 				if (filter === 'all') {
 					posts = all;
@@ -33,13 +39,24 @@ const Posts = ({ user }) => {
 					posts = drafts;
 				}
 
-				posts.reverse();
-				setPostsToDisplay(posts);
+				console.log(posts);
+				if (Array.isArray(posts)) {
+					console.log(posts);
+					posts.reverse();
+					setPostsToDisplay(posts);
+				} else {
+					posts = [];
+					setPostsToDisplay(posts);
+				}
 			}
 		};
 
 		fetchData();
-	}, [user, filter]);
+	}, [user, filter, all, published, drafts]);
+
+	useEffect(() => {
+		if (user) getPosts();
+	}, [user]);
 
 	return (
 		<>
@@ -61,25 +78,29 @@ const Posts = ({ user }) => {
 						</select>
 					</div>
 
-					<table className={styles.table}>
-						<thead>
-							<tr>
-								<th className={styles.th}>Blog Name</th>
-								<th className={styles.th}>Date</th>
-							</tr>
-						</thead>
-						<tbody className={styles.tbody}>
-							{postsToDisplay &&
-								postsToDisplay.map((post) => {
-									return (
-										<TableLink
-											key={post._id}
-											post={post}
-										/>
-									);
-								})}
-						</tbody>
-					</table>
+					{postsToDisplay.length === 0 ? (
+						<p>{filter === 'all' ? 'No posts' : `No ${filter} found`}</p>
+					) : (
+						<table className={styles.table}>
+							<thead>
+								<tr>
+									<th className={styles.th}>Blog Name</th>
+									<th className={styles.th}>Date</th>
+								</tr>
+							</thead>
+							<tbody className={styles.tbody}>
+								{postsToDisplay &&
+									postsToDisplay.map((post) => {
+										return (
+											<TableLink
+												key={post._id}
+												post={post}
+											/>
+										);
+									})}
+							</tbody>
+						</table>
+					)}
 				</section>
 			</main>
 		</>

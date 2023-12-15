@@ -11,10 +11,8 @@ const getAllPosts = async (token) => {
 			},
 		);
 
-		if (response.ok) {
-			const data = await response.json();
-			return data;
-		}
+		const data = await response.json();
+		return data;
 	} catch (error) {
 		console.log(error);
 	}
