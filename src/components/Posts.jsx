@@ -28,7 +28,6 @@ const Posts = ({ user }) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			console.log(all, published, drafts);
 			if ((all, published, drafts)) {
 				let posts = [];
 				if (filter === 'all') {
@@ -39,9 +38,7 @@ const Posts = ({ user }) => {
 					posts = drafts;
 				}
 
-				console.log(posts);
 				if (Array.isArray(posts)) {
-					console.log(posts);
 					posts.reverse();
 					setPostsToDisplay(posts);
 				} else {
