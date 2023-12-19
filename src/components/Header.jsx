@@ -28,7 +28,15 @@ const Header = ({ page }) => {
 								<Link to={'/'}>Home</Link>
 							</li>
 						))}
-					<li>Log Out</li>
+					<li>
+						<button
+							onClick={() => {
+								localStorage.removeItem('jwt');
+							}}
+						>
+							Log Out
+						</button>
+					</li>
 				</ul>
 			</nav>
 		</header>
