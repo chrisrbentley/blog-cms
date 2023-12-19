@@ -1,0 +1,10 @@
+@media only screen and (min-width: 769px) {
+	.dashMain {
+		display: flex;
+		justify-content: center;
+	}
+
+	.cards {
+		width: 60vw;
+	}
+}

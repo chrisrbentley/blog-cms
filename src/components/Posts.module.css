@@ -6,10 +6,7 @@
 }
 
 .tableSection > table {
-	/* margin: 20px; */
-	/* width: 80vw; */
-	max-width: 80vw;
-	min-width: 60vw;
+	width: 80vw;
 }
 
 .filter {
@@ -28,9 +25,19 @@
 }
 
 .tbody > tr > td {
-	padding: 10px 5px;
+	padding: 10px 0px;
+	padding: 10px 5px 10px 0;
 }
 
 .tbody > tr > td:first-child {
 	text-wrap: wrap;
+}
+
+@media only screen and (min-width: 769px) {
+	.tableSection > table {
+		padding: 20px;
+		border: solid 3px #6e44ff;
+		border-radius: 10px;
+		margin-top: 30px;
+	}
 }
