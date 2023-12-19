@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 
-const Header = ({ page }) => {
+const Header = ({ page, setUser }) => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 
 	return (
@@ -22,16 +22,17 @@ const Header = ({ page }) => {
 						dropdownOpen ? styles.visible : ''
 					}`}
 				>
-					{page === 'Create Post' ||
-						(page === 'Posts' && (
-							<li>
-								<Link to={'/'}>Home</Link>
-							</li>
-						))}
+					{page !== 'Dashboard' && (
+						<li>
+							<Link to={'/'}>Home</Link>
+						</li>
+					)}
 					<li>
 						<button
+							className={styles.logout}
 							onClick={() => {
 								localStorage.removeItem('jwt');
+								setUser(null);
 							}}
 						>
 							Log Out

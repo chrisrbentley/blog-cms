@@ -6,7 +6,7 @@ import Submit from './Submit';
 import { decode } from 'html-entities';
 import { Editor } from '@tinymce/tinymce-react';
 
-const BlogForm = ({ user }) => {
+const BlogForm = ({ user, setUser }) => {
 	let { id } = useParams();
 	const [title, setTitle] = useState('');
 	const [initialValue, setInitialValue] = useState('');
@@ -116,7 +116,10 @@ const BlogForm = ({ user }) => {
 
 	return user ? (
 		<>
-			<Header page={id ? 'Update Post' : 'Create Post'} />
+			<Header
+				page={id ? 'Update Post' : 'Create Post'}
+				setUser={setUser}
+			/>
 			<main>
 				<form onSubmit={handleForm}>
 					<div className={styles.title}>

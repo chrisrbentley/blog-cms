@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+
 import styles from './Login.module.css';
 
-const Login = ({ user }) => {
+const Login = ({ user, setUser }) => {
 	const [formData, setFormData] = useState({
 		username: '',
 		password: '',
@@ -40,7 +42,10 @@ const Login = ({ user }) => {
 				return;
 			}
 
-			return localStorage.setItem('jwt', JSON.stringify(data.token));
+			localStorage.setItem('jwt', JSON.stringify(data.token));
+			const decodedToken = jwtDecode(localStorage.getItem('jwt'));
+			console.log(decodedToken);
+			setUser(decodedToken);
 		} catch (error) {
 			console.log(error);
 			setErrorMessage('An error occurred, please try again.');

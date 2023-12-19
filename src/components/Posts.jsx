@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
 import Header from './Header';
 import TableLink from './TableLink';
 import { getAllPosts, getPublished, getDrafts } from '../api/postsApi';
 import styles from './Posts.module.css';
 
-const Posts = ({ user }) => {
+const Posts = ({ user, setUser }) => {
 	const [filter, setFilter] = useState('all');
 	const [postsToDisplay, setPostsToDisplay] = useState([]);
 
@@ -55,9 +57,12 @@ const Posts = ({ user }) => {
 		if (user) getPosts();
 	}, [user]);
 
-	return (
+	return user ? (
 		<>
-			<Header page={'Posts'} />
+			<Header
+				page={'Posts'}
+				setUser={setUser}
+			/>
 			<main>
 				<section className={styles.tableSection}>
 					<div className={styles.filter}>
@@ -101,6 +106,8 @@ const Posts = ({ user }) => {
 				</section>
 			</main>
 		</>
+	) : (
+		<Navigate to={'/login'} />
 	);
 };
 
