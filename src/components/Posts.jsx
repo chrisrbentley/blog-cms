@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-
 import Header from './Header';
 import TableLink from './TableLink';
-import { getAllPosts, getPublished, getDrafts } from '../api/postsApi';
+import { getAllPosts, getPublished, getDrafts } from '../api/postsAPI';
 import styles from './Posts.module.css';
 
 const Posts = ({ user, setUser }) => {
